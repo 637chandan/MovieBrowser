@@ -1,4 +1,4 @@
-package com.chandan.moviebrowser.data
+package com.chandan.moviebrowser.data.model
 
 data class Movie(
     var title: String,
@@ -8,5 +8,4 @@ data class Movie(
     var image: String,
 
     var year: String
-) {
-}
+)
