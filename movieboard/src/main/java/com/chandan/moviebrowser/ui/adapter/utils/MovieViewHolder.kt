@@ -18,8 +18,8 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(movie: Movie) {
         title.text = movie.title
-        desc.text = movie.desc
-        year.text = movie.year
+        desc.text = movie.language
+        year.text = movie.rating
         image.text = movie.image
         // add default for image error
         /*Glide.with(imagePoster.context).load(movie.poster)
