@@ -1,6 +1,7 @@
 package com.chandan.moviebrowser.ui.adapter.utils
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.chandan.moviebrowser.R
@@ -12,15 +13,15 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 
     private val title: TextView = itemView.findViewById(R.id.text_title)
-    private val desc: TextView = itemView.findViewById(R.id.text_desc)
-    private val year: TextView = itemView.findViewById(R.id.text_year)
-    private val image: TextView = itemView.findViewById(R.id.text_image)
+    private val rating : TextView = itemView.findViewById(R.id.text_rating)
+    private val language: TextView = itemView.findViewById(R.id.text_language)
+    private val image: ImageView = itemView.findViewById(R.id.image_poster)
 
     fun bind(movie: Movie) {
         title.text = movie.title
-        desc.text = movie.language
-        year.text = movie.rating
-        image.text = movie.image
+        language.text = movie.language
+        rating.text = movie.rating
+
         // add default for image error
         /*Glide.with(imagePoster.context).load(movie.poster)
             .centerCrop()
