@@ -8,7 +8,7 @@ import com.chandan.moviebrowser.data.model.Movie
 import com.chandan.moviebrowser.ui.adapter.utils.MovieViewHolder
 
 class MovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var mMoviesList = ArrayList<Movie?>()
+    private var moviesList = ArrayList<Movie?>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MovieViewHolder(
@@ -18,15 +18,21 @@ class MovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return mMoviesList.size
+        return moviesList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is MovieViewHolder -> {
-                holder.bind(mMoviesList.get(position)!!)
+                holder.bind(moviesList.get(position)!!)
             }
         }
+    }
+
+    fun setAdapter(newMovieList: List<Movie> ){
+        moviesList.clear()
+        moviesList.addAll(newMovieList)
+        notifyDataSetChanged()
     }
 
 }
