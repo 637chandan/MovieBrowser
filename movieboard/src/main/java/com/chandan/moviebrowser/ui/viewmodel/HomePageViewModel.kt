@@ -22,7 +22,7 @@ class HomePageViewModel (
      fun getMovies() {
          viewModelScope.launch(Dispatchers.IO) {
              try {
-                 movieData.postValue(movieRepo.getMovieList())
+                 movieData.postValue(movieRepo.getMovieList().result)
              } catch(e: Exception){
              }
          }

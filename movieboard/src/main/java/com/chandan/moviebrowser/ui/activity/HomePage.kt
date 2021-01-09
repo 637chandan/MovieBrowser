@@ -3,7 +3,6 @@ package com.chandan.moviebrowser.ui.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -47,7 +46,6 @@ class HomePage : AppCompatActivity() {
 
     private fun addObserver() {
         viewModel.movies.observe(this, Observer {
-            Toast.makeText(this,( viewModel.movies.value as List<Movie>).toString(), Toast.LENGTH_LONG)
             dataBind.recyclerViewMovies.visibility = View.VISIBLE
             movieAdapter.setAdapter(viewModel.movies.value as List<Movie>)
         })

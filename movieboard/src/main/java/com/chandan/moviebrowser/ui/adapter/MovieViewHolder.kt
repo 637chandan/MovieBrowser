@@ -1,4 +1,4 @@
-package com.chandan.moviebrowser.ui.adapter.utils
+package com.chandan.moviebrowser.ui.adapter
 
 import android.view.View
 import android.widget.ImageView
@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.chandan.moviebrowser.R
 import com.chandan.moviebrowser.data.model.Movie
+import com.chandan.moviebrowser.util.Constants.IMAGE_BASE_URL
 
 
 /*TO DO Need to move View Holder to Adapter class*/
@@ -21,11 +22,11 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(movie: Movie) {
         title.text = movie.title
-        language.text = movie.language
-        rating.text = movie.rating
+        language.text = movie.originalLanguage
+        rating.text = movie.voteAverage.toString()
 
         // add default for image error
-        Glide.with(image.context).load(movie.image)
+        Glide.with(image.context).load(IMAGE_BASE_URL + movie.posterPath)
             .centerCrop()
             .thumbnail(0.5f)
             .placeholder(R.drawable.ic_launcher_background)

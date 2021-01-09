@@ -5,15 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.chandan.moviebrowser.R
 import com.chandan.moviebrowser.data.model.Movie
-import com.chandan.moviebrowser.ui.adapter.utils.MovieViewHolder
 
 class MovieAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var moviesList = ArrayList<Movie?>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MovieViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.list_item_movie, parent, false)
+                LayoutInflater.from(parent.context)
+                        .inflate(R.layout.list_item_movie, parent, false)
         )
     }
 
