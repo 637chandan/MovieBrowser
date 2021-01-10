@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.chandan.moviebrowser.data.model.Movie
 import com.chandan.moviebrowser.data.repo.MovieRepo
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class HomePageViewModel (

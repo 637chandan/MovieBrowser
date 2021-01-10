@@ -6,22 +6,19 @@ import android.os.Handler
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chandan.moviebrowser.R
 import com.chandan.moviebrowser.data.model.Movie
-import com.chandan.moviebrowser.data.remote.RemoteMovieApi
-import com.chandan.moviebrowser.data.repo.MovieRepo
 import com.chandan.moviebrowser.databinding.ActivityHomePageBinding
 import com.chandan.moviebrowser.ui.adapter.MovieAdapter
-import com.chandan.moviebrowser.ui.viewmodel.HomePageModelFactory
 import com.chandan.moviebrowser.ui.viewmodel.HomePageViewModel
+import org.koin.android.ext.android.get
+import org.koin.android.ext.android.inject
 
 class HomePage : AppCompatActivity() {
-    private lateinit var homeViewModelFactory: HomePageModelFactory
-    private lateinit var viewModel: HomePageViewModel
-    private  lateinit var movieAdapter: MovieAdapter
+    private val viewModel: HomePageViewModel by inject()
+    private val movieAdapter: MovieAdapter by inject()
     private lateinit var dataBind: ActivityHomePageBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,10 +30,7 @@ class HomePage : AppCompatActivity() {
     }
 
     private fun setUp(){
-        val repo = MovieRepo(RemoteMovieApi())
-        homeViewModelFactory = HomePageModelFactory(repo);
-        viewModel = ViewModelProvider(this,homeViewModelFactory).get(HomePageViewModel::class.java)
-        movieAdapter =  MovieAdapter()
+      //   movieAdapter = get<MovieAdapter>()
     }
     private fun intiDataBind() {
         dataBind = DataBindingUtil.setContentView(this, R.layout.activity_home_page)
@@ -50,7 +44,6 @@ class HomePage : AppCompatActivity() {
                     val visibleItemCount = layoutManager!!.childCount
                     val totalItemCount = layoutManager.itemCount
                     val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-                  //  Log.i("Chandan"," "+visibleItemCount+ " "+firstVisibleItemPosition+" "+totalItemCount)
                     if(firstVisibleItemPosition + visibleItemCount >= totalItemCount && firstVisibleItemPosition >=0){
                         dataBind.progressBar.visibility = View.VISIBLE
                         Handler().postDelayed({
@@ -76,3 +69,4 @@ class HomePage : AppCompatActivity() {
         })
     }
 }
+
