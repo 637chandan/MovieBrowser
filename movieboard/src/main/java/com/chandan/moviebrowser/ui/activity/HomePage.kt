@@ -2,11 +2,14 @@ package com.chandan.moviebrowser.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.chandan.moviebrowser.R
 import com.chandan.moviebrowser.data.model.Movie
 import com.chandan.moviebrowser.data.remote.RemoteMovieApi
@@ -41,6 +44,25 @@ class HomePage : AppCompatActivity() {
         dataBind.recyclerViewMovies.apply{
             layoutManager = LinearLayoutManager(context)
             adapter = movieAdapter
+            addOnScrollListener(object: RecyclerView.OnScrollListener(){
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager?
+                    val visibleItemCount = layoutManager!!.childCount
+                    val totalItemCount = layoutManager.itemCount
+                    val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+                    Log.i("Chandan"," "+visibleItemCount+ " "+firstVisibleItemPosition+" "+totalItemCount)
+                    if(firstVisibleItemPosition + visibleItemCount >= totalItemCount && firstVisibleItemPosition >=0){
+                        dataBind.progressBar.visibility = View.VISIBLE
+                        Handler().postDelayed({
+                            viewModel.getMoreMovie()
+                        }, 1000)
+                    }
+
+                }
+
+
+            })
         }
     }
 
@@ -48,7 +70,10 @@ class HomePage : AppCompatActivity() {
         viewModel.movies.observe(this, Observer {
             dataBind.recyclerViewMovies.visibility = View.VISIBLE
             movieAdapter.setAdapter(viewModel.movies.value as List<Movie>)
+            dataBind.progressBar.visibility = View.GONE
+            Handler().postDelayed({
+                viewModel.setLoadingFalse()
+            }, 2000)
         })
     }
-
 }

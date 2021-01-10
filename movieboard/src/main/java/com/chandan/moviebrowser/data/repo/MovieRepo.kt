@@ -9,5 +9,5 @@ import com.chandan.moviebrowser.util.Constants.LANGUAGE
 class MovieRepo(
     private val apiRemote: RemoteMovieApi
 ) : RemoteApiRequest() {
-    suspend fun getMovieList() = apiReq { apiRemote.getMovieList(CATEGORY,API_KEY,LANGUAGE,1) }
+    suspend fun getMovieList(pageNo: Int) = apiReq { apiRemote.getMovieList(CATEGORY,API_KEY,LANGUAGE,pageNo) }
 }

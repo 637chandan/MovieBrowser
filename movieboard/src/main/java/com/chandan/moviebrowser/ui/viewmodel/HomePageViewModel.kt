@@ -1,5 +1,6 @@
 package com.chandan.moviebrowser.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,8 +14,13 @@ import kotlinx.coroutines.launch
 class HomePageViewModel (
    private val movieRepo: MovieRepo
 ): ViewModel() {
+    private var cacheMovieList = ArrayList<Movie?>()
+
+    private var pageNo = 1
+    private  var loadingMore =  true;
+
+
     private val movieData = MutableLiveData<List<Movie?>>()
-    private lateinit var job: Job
     val movies: LiveData<List<Movie?>>
       get() = movieData
 
@@ -22,9 +28,22 @@ class HomePageViewModel (
      fun getMovies() {
          viewModelScope.launch(Dispatchers.IO) {
              try {
-                 movieData.postValue(movieRepo.getMovieList().result)
+                 cacheMovieList.addAll(movieRepo.getMovieList(pageNo).result)
+                 movieData.postValue(cacheMovieList)
              } catch(e: Exception){
              }
          }
+    }
+
+    fun getMoreMovie() {
+        if(loadingMore) return
+        Log.i("Chandan","getting more movies "+ pageNo)
+        loadingMore = true;
+        pageNo++;
+        getMovies()
+    }
+
+    fun setLoadingFalse() {
+        loadingMore = false
     }
 }
