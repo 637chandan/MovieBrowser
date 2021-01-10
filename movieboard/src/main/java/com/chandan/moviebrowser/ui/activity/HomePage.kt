@@ -3,7 +3,6 @@ package com.chandan.moviebrowser.ui.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -51,7 +50,7 @@ class HomePage : AppCompatActivity() {
                     val visibleItemCount = layoutManager!!.childCount
                     val totalItemCount = layoutManager.itemCount
                     val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-                    Log.i("Chandan"," "+visibleItemCount+ " "+firstVisibleItemPosition+" "+totalItemCount)
+                  //  Log.i("Chandan"," "+visibleItemCount+ " "+firstVisibleItemPosition+" "+totalItemCount)
                     if(firstVisibleItemPosition + visibleItemCount >= totalItemCount && firstVisibleItemPosition >=0){
                         dataBind.progressBar.visibility = View.VISIBLE
                         Handler().postDelayed({
